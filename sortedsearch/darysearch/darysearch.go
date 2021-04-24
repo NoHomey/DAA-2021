@@ -6,6 +6,9 @@ import (
 	"github.com/NoHomey/DAA-2021/sortedsearch/util"
 )
 
+// Time complexity: Theta(lg(d) * log_d(n) + lg(2d - 1))
+// Space complexity: Theta(1)
+
 func Search(srcher searcher.Searcher, d int) int {
 	// pred is searcher.Check.
 	// We define that pred(-1) is false and pred(n) is true.
@@ -72,8 +75,3 @@ func (searcher block) Check(idx int) bool {
 	}
 	return searcher.check(shifted)
 }
-
-// func (this Type) Method(args...) ReturnType
-
-// Time complexity: Theta(lg(d) * log_d(n) + lg(2d - 1))
-// Space complexity: Theta(1)
