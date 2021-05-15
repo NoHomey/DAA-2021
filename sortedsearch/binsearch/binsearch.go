@@ -20,8 +20,5 @@ func Search(searcher searcher.Searcher) int {
 	// pred(j) is true thus pred(i) is true and pred(i - 1) is false.
 	// Therefore i is the smallest number from 0 to n inclusive
 	// such that pred(i) is true.
-	if i < n && searcher.Check(i) {
-		return i
-	}
-	return -1
+	return i
 }

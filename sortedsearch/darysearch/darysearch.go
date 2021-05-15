@@ -2,8 +2,8 @@ package darysearch
 
 import (
 	"github.com/NoHomey/DAA-2021/sortedsearch/binsearch"
+	"github.com/NoHomey/DAA-2021/sortedsearch/limitedbinsearch"
 	"github.com/NoHomey/DAA-2021/sortedsearch/searcher"
-	"github.com/NoHomey/DAA-2021/sortedsearch/util"
 )
 
 // Time complexity: Theta(lg(d) * log_d(n) + lg(2d - 1))
@@ -19,12 +19,10 @@ func Search(srcher searcher.Searcher, d int) int {
 	for i < j {
 		step := (j - i) / d
 		if step <= 1 {
-			res := binsearch.Search(searcher.Shifted{
-				Left:      i,
-				Right:     j,
-				CheckFunc: srcher.Check,
+			return limitedbinsearch.Search(srcher, limitedbinsearch.Limit{
+				Left:  i,
+				Right: j,
 			})
-			return util.ShiftResult(res, i, j, n)
 		}
 		blockSearcher := block{
 			check:    srcher.Check,

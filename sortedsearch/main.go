@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/NoHomey/DAA-2021/sortedsearch/expsearch"
+	"github.com/NoHomey/DAA-2021/sortedsearch/maxsearch"
 )
 
 type IntAscOrdSearcher struct {
@@ -20,24 +20,37 @@ func (s IntAscOrdSearcher) Count() int {
 }
 
 func searchElement(arr []int, x int) bool {
-	idx := expsearch.Search(IntAscOrdSearcher{
+	idx := maxsearch.Search(IntAscOrdSearcher{
 		Array:   arr,
 		Element: x,
-	})
-	return 0 <= idx && idx < len(arr) && arr[idx] == x
+	}, 4)
+	return idx < len(arr) && arr[idx] == x
 }
 
 func main() {
 	arr := []int{1, 3, 3, 5, 7, 8, 8, 8, 9, 10, 11, 11, 13}
-	fmt.Println(searchElement(arr, -4))
-	fmt.Println(searchElement(arr, 14))
-	fmt.Println(searchElement(arr, 4))
-	fmt.Println(searchElement(arr, 5))
-	fmt.Println(searchElement(arr, 11))
-	fmt.Println(searchElement(arr, 8))
-	fmt.Println(searchElement(arr, 9))
-	fmt.Println(searchElement(arr, 10))
-	fmt.Println(searchElement(arr, 1))
-	fmt.Println(searchElement(arr, 13))
-	fmt.Println(searchElement(arr, 12))
+	t := []test{
+		{-4, false},
+		{14, false},
+		{4, false},
+		{5, true},
+		{11, true},
+		{8, true},
+		{9, true},
+		{10, true},
+		{1, true},
+		{13, true},
+		{12, false},
+	}
+	for i, c := range t {
+		res := searchElement(arr, c.elem)
+		if res != c.res {
+			fmt.Println(i, c.elem, c.res, res)
+		}
+	}
+}
+
+type test struct {
+	elem int
+	res  bool
 }
