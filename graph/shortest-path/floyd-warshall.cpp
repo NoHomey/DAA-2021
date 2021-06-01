@@ -138,13 +138,12 @@ Result shortestPath(const Graph& graph) {
         }
     } // Theta(n^3), Theta(1)
     for(Vertex i = 0; i < n; i++) {
-        for(Vertex j = 0; j < n; j++) {
-            if(res.canBeRelaxed(i, j, n - 1)) {
-                res.foundNegativeCycle();
-                break;
-            }
+        Cost cost = res.cost(i, i);
+        if(cost.isFin() && cost.getCost() < 0) {
+            res.foundNegativeCycle();
+            break;
         }
-    } // Theta(n^2), Theta(1)
+    } // Theta(n), Theta(1)
     return res;
 } // Theta(n^3), Theta(n^2)
 
