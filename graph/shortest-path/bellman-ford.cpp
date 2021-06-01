@@ -88,7 +88,7 @@ public:
 
 Result singleSourceShortestPath(const Graph& graph, Vertex start) {
     std::size_t n = graph.size();
-    Result result = Result(n, start);
+    Result result = Result(n, start); // Theta(n), Theta(n)
     for(std::size_t i = 1; i < n; i++) {
         for(Vertex from = 0; from < n; from++) {
             for(Edge e: graph[from]) {
@@ -97,16 +97,19 @@ Result singleSourceShortestPath(const Graph& graph, Vertex start) {
                 result.relax({from, to, weight});
             }
         }
-    }
+    } // Theta((n - 1) * m), Theta(1)
     for(Vertex from = 0; from < n; from++) {
         for(Edge e: graph[from]) {
             Vertex to = e.first;
             int weight = e.second;
-            result.relax({from, to, weight});
+            if(result.canBeRelaxed({from, to, weight})) {
+                result.foundNegativeCycle();
+                return result;
+            }
         }
-    }
+    } // Theta(m), Theta(1)
     return result;
-}
+} // Theta(n*m), Theta(n)
 
 
 int main() {
