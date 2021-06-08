@@ -8,6 +8,8 @@
 // $ std::size_t size()
 // $ void        push(const Element& e)
 // $ Element     pop()
+// $ std::size_t index(const Element& e) [optional]
+// $ void        update(const Element& e) [optional]
 
 template<typename Element, class Container>
 class Heap {
@@ -26,6 +28,7 @@ private:
     }
 
     bool down(std::size_t idx, std::size_t size) {
+        std::size_t i = idx;
         while(true) {
             std::size_t leftIdx = 2 * idx + 1;
             std::size_t rightIdx = leftIdx + 1;
@@ -41,7 +44,8 @@ private:
             }
             container.swap(swapIdx, idx);
             idx = swapIdx;
-        };
+        }
+        return i < idx;
     }
 
 public:
@@ -64,5 +68,13 @@ public:
 
     bool is_empty() const {
         return container.size() == 0;
+    }
+
+    void update(const Element& element) {
+        container.update(element);
+        std::size_t i = container.index(element);
+        if(!down(i, container.size())) {
+            up(i);
+        }
     }
 };
