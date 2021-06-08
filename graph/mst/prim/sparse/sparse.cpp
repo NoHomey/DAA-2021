@@ -30,7 +30,7 @@ Result prim(const Graph& graph) {
     };
     std::vector<bool> selected(n, false);
     result.min_edge[0] = {0, 0};
-    IPQ pq(n); // Theata(n), Theata(n)
+    IPQ pq(n); // Theta(n), Theta(n)
     pq.push({0, 0, 0});
     for(Vertex v = 0; v < n; v++) {
         if(pq.is_empty()) {
