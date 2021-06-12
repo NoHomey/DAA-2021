@@ -58,7 +58,7 @@ std::vector<MST> networks(Graph& graph) {
         }
         if(stateIter == stateEnd) {
             state.push_back({1, UnionFind(n), {{{}, n}, 0}});
-            stateIter = stateEnd;
+            stateIter = state.end();
             --stateIter;
         }
         State& current = *stateIter;
